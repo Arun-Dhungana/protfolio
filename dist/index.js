@@ -20,10 +20,18 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 const checkconnetion_1 = require("./utility/checkconnetion");
 const app = (0, express_1.default)();
 (0, dotenv_1.config)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: "https://arundhungana-mu.vercel.app/" }));
 app.use(express_1.default.json());
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Hello");
+    try {
+        yield prismaClient_1.default.message.deleteMany();
+        res.status(200).json({ success: "REgistered in guestbook" });
+    }
+    catch (err) {
+        res
+            .status(400)
+            .json({ message: `Error posting guest message:${err.message}` });
+    }
 }));
 app.post("/guestbook", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

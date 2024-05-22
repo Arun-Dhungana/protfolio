@@ -11,6 +11,17 @@ app.use(express.json());
 
 app.get("/", async (req: Request, res: Response) => {
   res.send("Hello");
+  //   try {
+  //
+
+  //  const deleteasd= await prisma.message.deleteMany();
+  //console.log(deleteasd)
+  //   res.status(200).json({ success: "REgistered in guestbook" });
+  // } catch (err: any) {
+  //   res
+  //     .status(400)
+  //     .json({ message: `Error posting guest message:${err.message}` });
+  // }
 });
 
 app.post("/guestbook", async (req: Request, res: Response) => {
