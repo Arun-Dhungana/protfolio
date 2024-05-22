@@ -6,7 +6,7 @@ import nodemailer from "nodemailer";
 import { checkConnection } from "./utility/checkconnetion";
 const app: Application = express();
 config();
-app.use(cors());
+app.use(cors({ origin: "https://arundhungana-one.vercel.app/" }));
 app.use(express.json());
 
 app.get("/", async (req: Request, res: Response) => {
