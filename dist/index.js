@@ -50,12 +50,13 @@ app.get("/guestbook", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 app.post("/mail", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, message, phonenumber, } = req.body;
+    console.log(req.body);
     try {
         // Create a SMTP transporter
         const transporter = nodemailer_1.default.createTransport({
             // Configure your SMTP settings here
             // Example:
-            host: "smtp.example.com",
+            host: "smtp.gmail.com",
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
@@ -69,6 +70,12 @@ app.post("/mail", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             to: process.env.EMAIL_ADDRESS,
             subject: "Through website contact link",
             text: `Name: ${name}\nMessage: ${message}\n Phonenumber:${phonenumber}`,
+        });
+        yield transporter.sendMail({
+            from: process.env.EMAIL_ADDRESS,
+            to: email,
+            subject: "Through website contact link",
+            text: "Thanks for trying to connect.I will contact you soon.",
         });
         res.status(200).json({ message: "Email sent successfully!" });
     }
